@@ -1,9 +1,19 @@
 import {TouchableOpacity, Image, Text, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import * as atom from '../../app/store';
+import {useAtom} from 'jotai';
 
 const DestinationsCard = ({image, name}) => {
+  const navigation = useNavigation();
+  const [, setSearch] = useAtom(atom.search);
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
+      onPress={() => {
+        navigation.navigate('Search', {name});
+        setSearch(name);
+      }}
       style={{
         borderRadius: 20,
         marginBottom: 5,

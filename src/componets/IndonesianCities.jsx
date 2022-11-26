@@ -24,8 +24,8 @@ const IndonesianCiteis = () => {
         image={require('../assets/img/indonesia/bandung.png')}
       />
       <DestinationsCard
-        name="Medan"
-        image={require('../assets/img/indonesia/medan.png')}
+        name="Batam"
+        image={require('../assets/img/indonesia/batam.png')}
       />
     </ScrollView>
   );

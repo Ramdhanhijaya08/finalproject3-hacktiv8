@@ -1,23 +1,18 @@
 import React from 'react';
-import {
-  ScrollView,
-  Text,
-  View,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
-
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {ScrollView} from 'react-native-virtualized-view';
 import NotificationIcon from '../assets/svg/notification.svg';
 import SearchBar from '../componets/SearchBar';
 import IndonesianCiteis from '../componets/IndonesianCities';
 import PopularDestinations from '../componets/PopularDestinations';
-import NavMenu from '../componets/NavMenu';
+import Layout from '../componets/Layout';
+import useUser from '../hooks/useUser';
 
 const HomeScreen = () => {
+  const {user} = useUser();
+
   return (
-    <View style={{flex: 1}}>
-      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
+    <Layout>
       <ScrollView>
         <View
           style={{
@@ -29,7 +24,7 @@ const HomeScreen = () => {
             justifyContent: 'space-between',
           }}>
           <Text style={{fontSize: 20, color: '#000', fontWeight: '500'}}>
-            Hi, Maung
+            {user ? `Hi ${user.name.firstname} 👋` : 'Welcome 👋'}
           </Text>
           <TouchableOpacity
             style={{
@@ -75,9 +70,7 @@ const HomeScreen = () => {
           <PopularDestinations />
         </View>
       </ScrollView>
-
-      <NavMenu />
-    </View>
+    </Layout>
   );
 };
 

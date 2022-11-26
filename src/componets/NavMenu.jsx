@@ -21,6 +21,7 @@ const NavMenu = () => {
           paddingVertical: 20,
           flexDirection: 'row',
           justifyContent: 'space-between',
+          backgroundColor: 'white',
         },
       ]}>
       <TouchableOpacity activeOpacity={0.8}>
