@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import Navbar from '../componets/Navbar';
 import {getDetailHotel} from '../services/hotel';
@@ -13,40 +14,61 @@ import PrimaryButton from '../componets/button/PrimaryButton';
 import LocationIcon from '../assets/svg/location.svg';
 import useUser from '../hooks/useUser';
 import Toast from 'react-native-toast-message';
+import BookmarkIcon from '../assets/svg/bookmark-hotel.svg';
+import * as atom from '../app/store';
+import {useAtom} from 'jotai';
 
 const DetailHotelScreen = ({route, navigation}) => {
-  const {id, price, name, image} = route.params;
+  const {detail} = route.params;
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(false);
   const {user} = useUser();
 
+  const [, setHotelTemp] = useAtom(atom.hotelTemp);
+  const [, setIsFromDetail] = useAtom(atom.isFromDetail);
+
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const res = await getDetailHotel(id);
+      const res = await getDetailHotel(detail.id);
       setLoading(false);
       setHotel(res);
     })();
-  }, [id]);
+  }, [detail.id]);
 
   const bookHandler = () => {
+    setHotelTemp(detail);
     if (!user) {
       Toast.show({
         type: 'info',
         text1: 'Login first before booking a hotel',
       });
+      setIsFromDetail(true);
       return navigation.navigate('Login');
     } else {
-      console.log('ok');
+      navigation.navigate('SelectDate');
     }
   };
 
   return (
     <View style={{flex: 1}}>
-      <Navbar />
+      <View
+        style={[
+          styles.container,
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          },
+        ]}>
+        <Navbar title="Hotel Detail" />
+        <TouchableOpacity activeOpacity={0.8}>
+          <BookmarkIcon width={20} height={20} />
+        </TouchableOpacity>
+      </View>
       <ScrollView>
         <Image
-          source={{uri: image.uri}}
+          source={{uri: detail.image.uri}}
           style={{width: '100%', height: 250, marginTop: 20}}
         />
         {loading && (
@@ -136,7 +158,7 @@ const DetailHotelScreen = ({route, navigation}) => {
               },
             ]}>
             <Text style={{fontSize: 24, color: '#4C4DDC', fontWeight: '600'}}>
-              {price}
+              {detail.price}
               <Text style={{color: 'black', fontSize: 14, fontWeight: '400'}}>
                 {' '}
                 / night

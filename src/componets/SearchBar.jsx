@@ -6,7 +6,6 @@ import {
   Text,
   FlatList,
 } from 'react-native';
-import Search from '../assets/svg/search-white.svg';
 import Filter from '../assets/svg/filter.svg';
 import {useAtom} from 'jotai';
 import * as atom from '../app/store';
@@ -14,6 +13,7 @@ import {useMemo, useState} from 'react';
 import CustomModal from './CustomModal';
 import city from '../data/countries.json';
 import {useNavigation} from '@react-navigation/native';
+import XIcon from '../assets/svg/x.svg';
 
 const cities = [];
 
@@ -53,17 +53,21 @@ const SearchBar = () => {
           }}
           placeholder="Search Hotels By City"
         />
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 50,
-            backgroundColor: '#4C4DDC',
-            padding: 5,
-            borderRadius: 7,
-          }}>
-          <Search height={20} width={20} />
-        </TouchableOpacity>
+        {search && (
+          <TouchableOpacity
+            onPress={() => setSearch('')}
+            activeOpacity={0.8}
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 50,
+              backgroundColor: '#4C4DDC',
+              padding: 6,
+              borderRadius: 7,
+            }}>
+            <XIcon height={18} width={18} />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => setModalFilter(!isModalFilter)}
           style={{position: 'absolute', top: 12, right: 10}}

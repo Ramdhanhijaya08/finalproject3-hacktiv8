@@ -7,6 +7,10 @@ import HomeScreen from '../screens/Home';
 import LoginScreen from '../screens/Login';
 import SearchScreen from '../screens/Search';
 import DetailHotelScreen from '../screens/DetailHotel';
+import ContactReservationScreen from '../screens/ContactReservation';
+import SelectDateScreen from '../screens/SelectDate';
+import PaymentSceen from '../screens/Payment';
+import BookingHistoryScreen from '../screens/BookingHistory';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +28,7 @@ function App() {
       <StatusBar backgroundColor={'white'} barStyle="dark-content" />
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
-          // initialRouteName="Login"
+          // initialRouteName="SelectDate"
           screenOptions={{
             headerShown: false,
           }}>
@@ -32,6 +36,16 @@ function App() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="DetailHotel" component={DetailHotelScreen} />
+          <Stack.Screen
+            name="ContactReservation"
+            component={ContactReservationScreen}
+          />
+          <Stack.Screen name="SelectDate" component={SelectDateScreen} />
+          <Stack.Screen name="Payment" component={PaymentSceen} />
+          <Stack.Screen
+            name="BookingHistory"
+            component={BookingHistoryScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />

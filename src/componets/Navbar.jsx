@@ -1,7 +1,7 @@
 import {Text, View} from 'react-native';
 import BackButton from './button/BackButton';
 
-const Navbar = ({title}) => {
+const Navbar = ({title, to}) => {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ const Navbar = ({title}) => {
         width: '90%',
         alignSelf: 'center',
       }}>
-      <BackButton />
+      <BackButton to={to} />
       <Text
         style={{
           fontSize: 22,

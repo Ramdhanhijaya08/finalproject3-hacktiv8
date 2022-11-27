@@ -6,6 +6,8 @@ import {useState} from 'react';
 import PrimaryButton from '../componets/button/PrimaryButton';
 import Toast from 'react-native-toast-message';
 import useUser from '../hooks/useUser';
+import * as atom from '../app/store.js';
+import {useAtom} from 'jotai';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -14,11 +16,16 @@ const LoginScreen = ({navigation}) => {
   const [isFocusPassword, setIsFocusPassword] = useState(false);
   const {login} = useUser();
 
+  const [isFromDetail, setIsFromDetail] = useAtom(atom.isFromDetail);
+
   const loginHandler = async () => {
     if (email && password) {
       const res = await login(email, password);
       if (res) {
-        navigation.navigate('Home');
+        !isFromDetail
+          ? navigation.navigate('Home')
+          : navigation.navigate('SelectDate');
+        setIsFromDetail(false);
       } else {
         setPassword('');
       }

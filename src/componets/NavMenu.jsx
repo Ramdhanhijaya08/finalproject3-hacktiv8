@@ -7,10 +7,11 @@ import BookmarkIcon from '../assets/svg/bookmark.svg';
 import BookmarkActiveIcon from '../assets/svg/bookmark-active.svg';
 import ProfileIcon from '../assets/svg/profile.svg';
 import ProfileActiveIcon from '../assets/svg/profile-active.svg';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const NavMenu = () => {
   const route = useRoute();
+  const navigation = useNavigation();
 
   return (
     <View
@@ -24,28 +25,36 @@ const NavMenu = () => {
           backgroundColor: 'white',
         },
       ]}>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Home')}>
         {route.name === 'Home' ? (
           <HomeActiveIcon width={30} height={30} />
         ) : (
           <HomeIcon width={30} height={30} />
         )}
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('BookingHistory')}>
         {route.name === 'BookingHistory' ? (
           <CalenderActiveIcon width={30} height={30} />
         ) : (
           <CalenderIcon width={30} height={30} />
         )}
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Bookmark')}>
         {route.name === 'Bookmark' ? (
           <BookmarkActiveIcon width={30} height={30} />
         ) : (
           <BookmarkIcon width={30} height={30} />
         )}
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Profile')}>
         {route.name === 'Profile' ? (
           <ProfileActiveIcon width={30} height={30} />
         ) : (

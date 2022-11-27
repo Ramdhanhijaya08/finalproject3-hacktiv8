@@ -3,7 +3,7 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import BookmarkIcon from '../../assets/svg/bookmark-hotel.svg';
 
-const HotelCard = ({image, name, location, rate, review, price, id}) => {
+const HotelCard = props => {
   const navigation = useNavigation();
 
   return (
@@ -17,11 +17,9 @@ const HotelCard = ({image, name, location, rate, review, price, id}) => {
       }}>
       <TouchableOpacity
         style={{flexDirection: 'row'}}
-        onPress={() =>
-          navigation.navigate('DetailHotel', {id, price, name, image})
-        }>
+        onPress={() => navigation.navigate('DetailHotel', {detail: props})}>
         <Image
-          source={image}
+          source={props.image}
           style={{width: 100, height: 100, borderRadius: 20}}
         />
         <View style={{marginLeft: 15}}>
@@ -32,9 +30,9 @@ const HotelCard = ({image, name, location, rate, review, price, id}) => {
               color: 'black',
               maxWidth: 150,
             }}>
-            {name}
+            {props.name}
           </Text>
-          <Text style={{marginTop: 10, color: 'black'}}>{location}</Text>
+          <Text style={{marginTop: 10, color: 'black'}}>{props.location}</Text>
           <Text
             style={{
               fontWeight: '600',
@@ -42,7 +40,7 @@ const HotelCard = ({image, name, location, rate, review, price, id}) => {
               fontSize: 16,
               marginTop: 10,
             }}>
-            {rate}
+            {props.rate}
             {'  '}
             <Text
               style={{
@@ -50,14 +48,14 @@ const HotelCard = ({image, name, location, rate, review, price, id}) => {
                 color: '#000',
                 fontSize: 14,
               }}>
-              ({review}) reviews
+              ({props.review}) reviews
             </Text>
           </Text>
         </View>
       </TouchableOpacity>
       <View>
         <Text style={{fontSize: 20, fontWeight: '600', color: '#4C4DDC'}}>
-          {price}
+          {props.price}
         </Text>
         <Text>/ night</Text>
         <TouchableOpacity
