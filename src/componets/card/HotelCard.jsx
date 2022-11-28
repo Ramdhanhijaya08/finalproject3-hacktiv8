@@ -2,9 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import BookmarkIcon from '../../assets/svg/bookmark-hotel.svg';
+import BookmarkActive from '../../assets/svg/bookmarked-hotel.svg';
+import useBookmark from '../../hooks/useBookmark';
 
 const HotelCard = props => {
   const navigation = useNavigation();
+  const {bookmarkedHotel, bookmarkHandler} = useBookmark();
 
   return (
     <View
@@ -59,11 +62,16 @@ const HotelCard = props => {
         </Text>
         <Text>/ night</Text>
         <TouchableOpacity
+          onPress={() => bookmarkHandler(props)}
           style={{
             marginTop: 20,
             alignSelf: 'flex-end',
           }}>
-          <BookmarkIcon height={22} width={22} />
+          {bookmarkedHotel.find(hotel => hotel.id === props.id) ? (
+            <BookmarkActive height={22} width={22} />
+          ) : (
+            <BookmarkIcon height={22} width={22} />
+          )}
         </TouchableOpacity>
       </View>
     </View>

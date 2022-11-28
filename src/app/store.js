@@ -9,3 +9,4 @@ export const isFromDetail = atom(false);
 export const reservationInfo = atom(null);
 
 export const bookingHistory = atom([]);
+export const bookmarkedHotel = atom([]);

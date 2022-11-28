@@ -15,14 +15,17 @@ import LocationIcon from '../assets/svg/location.svg';
 import useUser from '../hooks/useUser';
 import Toast from 'react-native-toast-message';
 import BookmarkIcon from '../assets/svg/bookmark-hotel.svg';
+import BookmarkActive from '../assets/svg/bookmarked-hotel.svg';
 import * as atom from '../app/store';
 import {useAtom} from 'jotai';
+import useBookmark from '../hooks/useBookmark';
 
 const DetailHotelScreen = ({route, navigation}) => {
   const {detail} = route.params;
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(false);
   const {user} = useUser();
+  const {bookmarkHandler, bookmarkedHotel} = useBookmark();
 
   const [, setHotelTemp] = useAtom(atom.hotelTemp);
   const [, setIsFromDetail] = useAtom(atom.isFromDetail);
@@ -62,8 +65,14 @@ const DetailHotelScreen = ({route, navigation}) => {
           },
         ]}>
         <Navbar title="Hotel Detail" />
-        <TouchableOpacity activeOpacity={0.8}>
-          <BookmarkIcon width={20} height={20} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => bookmarkHandler(detail)}>
+          {bookmarkedHotel.find(hotel => hotel.id === detail.id) ? (
+            <BookmarkActive width={20} height={20} />
+          ) : (
+            <BookmarkIcon width={20} height={20} />
+          )}
         </TouchableOpacity>
       </View>
       <ScrollView>

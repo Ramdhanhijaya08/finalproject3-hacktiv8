@@ -11,6 +11,7 @@ import ContactReservationScreen from '../screens/ContactReservation';
 import SelectDateScreen from '../screens/SelectDate';
 import PaymentSceen from '../screens/Payment';
 import BookingHistoryScreen from '../screens/BookingHistory';
+import BookmarkScreen from '../screens/Bookmark';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ function App() {
             name="BookingHistory"
             component={BookingHistoryScreen}
           />
+          <Stack.Screen name="Bookmark" component={BookmarkScreen} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />

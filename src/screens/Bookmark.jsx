@@ -1,12 +1,11 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import HotelCard from '../componets/card/HotelCard';
 import Layout from '../componets/Layout';
-import * as atom from '../app/store';
-import {useAtom} from 'jotai';
-import BookingCard from '../componets/card/BookingCard';
+import useBookmark from '../hooks/useBookmark';
 
-const BookingHistoryScreen = () => {
-  const [bookingHistory] = useAtom(atom.bookingHistory);
+const BookmarkScreen = () => {
+  const {bookmarkedHotel} = useBookmark();
 
   return (
     <Layout>
@@ -18,22 +17,15 @@ const BookingHistoryScreen = () => {
             color: 'black',
             marginTop: 10,
           }}>
-          My Booking
+          My Bookmark
         </Text>
 
         <View style={{marginTop: 30}}>
-          {bookingHistory.length ? (
-            bookingHistory.map((book, i) => (
-              <BookingCard
-                key={i}
-                location={book.hotelInfo.location}
-                image={{uri: book.hotelInfo.image.uri}}
-                name={book.hotelInfo.name}
-              />
-            ))
+          {bookmarkedHotel.length ? (
+            bookmarkedHotel.map((hotel, i) => <HotelCard key={i} {...hotel} />)
           ) : (
             <Text style={{fontSize: 18, fontWeight: '500', color: 'black'}}>
-              No hotel bookings yet
+              No bookmarked hotels
             </Text>
           )}
         </View>
@@ -49,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookingHistoryScreen;
+export default BookmarkScreen;
