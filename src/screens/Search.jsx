@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Navbar from '../componets/Navbar';
+import Navbar from '../components/Navbar';
 import {getHotelList} from '../services/hotel';
-import HotelCard from '../componets/card/HotelCard';
-import Layout from '../componets/Layout';
-import SearchBar from '../componets/SearchBar';
+import HotelCard from '../components/card/HotelCard';
+import Layout from '../components/Layout';
+import SearchBar from '../components/SearchBar';
 import SortIcon from '../assets/svg/sort.svg';
 
 const SearchScreen = ({route, navigation}) => {

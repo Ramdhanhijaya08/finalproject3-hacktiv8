@@ -1,9 +1,9 @@
 import {View, Text, StyleSheet, TextInput} from 'react-native';
-import BackButton from '../componets/button/BackButton';
+import BackButton from '../components/button/BackButton';
 import LockIcon from '../assets/svg/lock.svg';
 import EmailIcon from '../assets/svg/email.svg';
 import {useState} from 'react';
-import PrimaryButton from '../componets/button/PrimaryButton';
+import PrimaryButton from '../components/button/PrimaryButton';
 import Toast from 'react-native-toast-message';
 import useUser from '../hooks/useUser';
 import * as atom from '../app/store.js';

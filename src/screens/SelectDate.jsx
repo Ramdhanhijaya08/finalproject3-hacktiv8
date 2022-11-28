@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import PrimaryButton from '../componets/button/PrimaryButton';
-import Navbar from '../componets/Navbar';
+import PrimaryButton from '../components/button/PrimaryButton';
+import Navbar from '../components/Navbar';
 import Toast from 'react-native-toast-message';
 import * as atom from '../app/store';
 import {useAtom} from 'jotai';

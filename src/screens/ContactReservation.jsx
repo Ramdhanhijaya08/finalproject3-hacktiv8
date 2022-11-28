@@ -1,8 +1,8 @@
 import {useAtom} from 'jotai';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import PrimaryButton from '../componets/button/PrimaryButton';
-import Navbar from '../componets/Navbar';
+import PrimaryButton from '../components/button/PrimaryButton';
+import Navbar from '../components/Navbar';
 import useUser from '../hooks/useUser';
 import * as atom from '../app/store';
 import Toast from 'react-native-toast-message';

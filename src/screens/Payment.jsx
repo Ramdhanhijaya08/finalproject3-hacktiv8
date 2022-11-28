@@ -1,10 +1,10 @@
 import {useAtom} from 'jotai';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Navbar from '../componets/Navbar';
+import Navbar from '../components/Navbar';
 import * as atom from '../app/store';
-import HotelCard from '../componets/card/HotelCard';
-import PrimaryButton from '../componets/button/PrimaryButton';
+import HotelCard from '../components/card/HotelCard';
+import PrimaryButton from '../components/button/PrimaryButton';
 import Toast from 'react-native-toast-message';
 
 const PaymentSceen = ({navigation}) => {

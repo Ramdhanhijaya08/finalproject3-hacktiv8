@@ -1,9 +1,9 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import Layout from '../componets/Layout';
+import Layout from '../components/Layout';
 import * as atom from '../app/store';
 import {useAtom} from 'jotai';
-import BookingCard from '../componets/card/BookingCard';
+import BookingCard from '../components/card/BookingCard';
 
 const BookingHistoryScreen = () => {
   const [bookingHistory] = useAtom(atom.bookingHistory);

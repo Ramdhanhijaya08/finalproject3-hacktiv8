@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import HotelCard from '../componets/card/HotelCard';
-import Layout from '../componets/Layout';
+import HotelCard from '../components/card/HotelCard';
+import Layout from '../components/Layout';
 import useBookmark from '../hooks/useBookmark';
 
 const BookmarkScreen = () => {

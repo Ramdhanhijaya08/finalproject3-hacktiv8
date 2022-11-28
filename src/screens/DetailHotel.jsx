@@ -8,9 +8,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import Navbar from '../componets/Navbar';
+import Navbar from '../components/Navbar';
 import {getDetailHotel} from '../services/hotel';
-import PrimaryButton from '../componets/button/PrimaryButton';
+import PrimaryButton from '../components/button/PrimaryButton';
 import LocationIcon from '../assets/svg/location.svg';
 import useUser from '../hooks/useUser';
 import Toast from 'react-native-toast-message';
