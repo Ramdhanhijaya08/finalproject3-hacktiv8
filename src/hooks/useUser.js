@@ -31,7 +31,24 @@ const useUser = () => {
     setUser(null);
   };
 
-  return {user, login, logout};
+  const updateUser = update => {
+    setUser({
+      ...user,
+      name: {
+        firstname: update.firstName,
+        lastname: update.lastName,
+      },
+      email: update.email,
+      phone: update.phone,
+    });
+
+    Toast.show({
+      type: 'success',
+      text1: 'Update profile successful',
+    });
+  };
+
+  return {user, login, logout, updateUser};
 };
 
 export default useUser;

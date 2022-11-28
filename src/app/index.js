@@ -12,6 +12,8 @@ import SelectDateScreen from '../screens/SelectDate';
 import PaymentSceen from '../screens/Payment';
 import BookingHistoryScreen from '../screens/BookingHistory';
 import BookmarkScreen from '../screens/Bookmark';
+import ProfileScreen from '../screens/Profile';
+import EditProfileScreen from '../screens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +50,8 @@ function App() {
             component={BookingHistoryScreen}
           />
           <Stack.Screen name="Bookmark" component={BookmarkScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />
