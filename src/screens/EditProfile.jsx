@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
 import PrimaryButton from '../components/button/PrimaryButton';
 import Layout from '../components/Layout';
 import Navbar from '../components/Navbar';

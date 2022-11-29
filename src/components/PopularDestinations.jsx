@@ -8,24 +8,24 @@ const PopularDestinations = () => {
       showsHorizontalScrollIndicator={false}
       style={{marginLeft: 20, marginTop: 20, marginBottom: 50}}>
       <DestinationsCard
-        name="Bali"
-        image={require('../assets/img/indonesia/bali.png')}
+        name="Tokyo"
+        image={require('../assets/img/inter/tokyo.png')}
       />
       <DestinationsCard
-        name="Jakarta"
-        image={require('../assets/img/indonesia/jakarta.png')}
+        name="London"
+        image={require('../assets/img/inter/london.png')}
       />
       <DestinationsCard
-        name="Yogyakarta"
-        image={require('../assets/img/indonesia/jogja.png')}
+        name="New York"
+        image={require('../assets/img/inter/new-york.png')}
       />
       <DestinationsCard
-        name="Bandung"
-        image={require('../assets/img/indonesia/bandung.png')}
+        name="Berlin"
+        image={require('../assets/img/inter/berlin.png')}
       />
       <DestinationsCard
-        name="Medan"
-        image={require('../assets/img/indonesia/medan.png')}
+        name="Sydney"
+        image={require('../assets/img/inter/sydney.png')}
       />
     </ScrollView>
   );
