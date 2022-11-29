@@ -13,18 +13,26 @@ import HotelCard from '../components/card/HotelCard';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import SortIcon from '../assets/svg/sort.svg';
+import {useAtom} from 'jotai';
+import * as atom from '../app/store';
 
 const SearchScreen = ({route, navigation}) => {
   const {name} = route.params;
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(10);
+  const [filterSearch] = useAtom(atom.filterSearch);
 
   useEffect(() => {
     (async () => {
       if (hotels.length % 10 === 0) {
         setLoading(true);
-        const res = await getHotelList(name, count);
+        const res = await getHotelList(
+          name,
+          count,
+          filterSearch.minPrice,
+          filterSearch.maxPrice,
+        );
 
         if (res) setHotels(res);
         setLoading(false);

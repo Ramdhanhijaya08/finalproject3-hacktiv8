@@ -12,7 +12,7 @@ export const getIdCity = async name => {
   return res.sr[0].gaiaId;
 };
 
-export const getHotelList = async (name, count) => {
+export const getHotelList = async (name, count, minPrice, maxPrice) => {
   try {
     const cityId = await getIdCity(name);
 
@@ -33,7 +33,9 @@ export const getHotelList = async (name, count) => {
       'POST',
       'https://hotels4.p.rapidapi.com/properties/v2/list',
       {
-        data: `{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"${cityId}"},"checkInDate":{"day":${day},"month":${month},"year":${year}},"checkOutDate":{"day":${checkOutDay},"month":${checkOutMonth},"year":${checkOutYear}},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":${count},"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max":150,"min":10}}}`,
+        data: `{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"${cityId}"},"checkInDate":{"day":${day},"month":${month},"year":${year}},"checkOutDate":{"day":${checkOutDay},"month":${checkOutMonth},"year":${checkOutYear}},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":${count},"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max": ${Number(
+          maxPrice,
+        )},"min":${Number(minPrice)}}}}`,
       },
     );
 

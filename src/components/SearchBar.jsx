@@ -6,14 +6,16 @@ import {
   Text,
   FlatList,
 } from 'react-native';
+import PrimaryButton from './button/PrimaryButton';
 import Filter from '../assets/svg/filter.svg';
 import {useAtom} from 'jotai';
 import * as atom from '../app/store';
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import CustomModal from './CustomModal';
 import city from '../data/countries.json';
 import {useNavigation} from '@react-navigation/native';
 import XIcon from '../assets/svg/x.svg';
+import Toast from 'react-native-toast-message';
 
 const cities = [];
 
@@ -25,12 +27,44 @@ const SearchBar = () => {
   const [isModalFilter, setModalFilter] = useState(false);
   const [isQuery, setIsQuery] = useState(false);
 
+  const [filterSearch, setFilterSearch] = useAtom(atom.filterSearch);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
   const navigation = useNavigation();
 
   const query = useMemo(
     () => cities.filter(c => c.toLowerCase().includes(search.toLowerCase())),
     [search, cities],
   );
+
+  const applyFilterHandler = () => {
+    if (minPrice.length == 0 || maxPrice.length == 0) {
+      Toast.show({
+        type: 'error',
+        text1: 'Min price and Max price must be filled!',
+      });
+      return;
+    }
+
+    if (Number(minPrice) < Number(maxPrice)) {
+      setFilterSearch({
+        minPrice,
+        maxPrice,
+      });
+      setModalFilter(false);
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'The min price must be smaller than the max price',
+      });
+    }
+  };
+
+  useEffect(() => {
+    setMaxPrice(filterSearch.maxPrice);
+    setMinPrice(filterSearch.minPrice);
+  }, []);
 
   return (
     <>
@@ -108,11 +142,61 @@ const SearchBar = () => {
         toggle={isModalFilter}
         onClose={() => setModalFilter(false)}
         title="Filter Search">
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
-        <Text>Test</Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '500',
+            color: '#000',
+            marginBottom: 15,
+          }}>
+          Price Range (USD)
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignSelf: 'center',
+          }}>
+          <TextInput
+            value={minPrice}
+            onChangeText={value => setMinPrice(value.replace(/[^0-9]/g, ''))}
+            keyboardType="numeric"
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: '#D6D6D6',
+              marginLeft: 15,
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              color: '#000',
+              marginLeft: 15,
+            }}>
+            -
+          </Text>
+          <TextInput
+            value={maxPrice}
+            onChangeText={value => setMaxPrice(value.replace(/[^0-9]/g, ''))}
+            keyboardType="numeric"
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: '#D6D6D6',
+              marginLeft: 15,
+            }}
+          />
+        </View>
+
+        <PrimaryButton onPress={applyFilterHandler} style={{marginTop: 30}}>
+          Apply
+        </PrimaryButton>
       </CustomModal>
     </>
   );
