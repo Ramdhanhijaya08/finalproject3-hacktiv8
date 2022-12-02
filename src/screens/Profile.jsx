@@ -12,9 +12,12 @@ import photoProfile from '../assets/img/photo-profile.png';
 import Profile from '../assets/svg/profile.svg';
 import LogoutIcon from '../assets/svg/logout.svg';
 import useUser from '../hooks/useUser';
+import * as atom from '../app/store';
+import {useAtom} from 'jotai';
 
 const ProfileScreen = ({navigation}) => {
   const {user, logout} = useUser();
+  const [, setIsFromDetail] = useAtom(atom.isFromDetail);
 
   return (
     <Layout>
@@ -96,7 +99,10 @@ const ProfileScreen = ({navigation}) => {
           ) : (
             <View style={{alignSelf: 'center'}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => {
+                  setIsFromDetail(false);
+                  navigation.navigate('Login');
+                }}
                 style={{
                   paddingVertical: 12,
                   paddingHorizontal: 16,
