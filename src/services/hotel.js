@@ -12,28 +12,47 @@ export const getIdCity = async name => {
   return res.sr[0].gaiaId;
 };
 
-export const getHotelList = async (name, count, minPrice, maxPrice) => {
+export const getHotelList = async (
+  name,
+  count,
+  minPrice,
+  maxPrice,
+  dateIn,
+  dateOut,
+) => {
   try {
     const cityId = await getIdCity(name);
 
-    const [year, month, day] = new Date().toISOString().slice(0, 10).split('-');
+    if (dateIn.toDateString() === dateOut.toDateString()) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const checkOutDay =
-      Number(day) >= 28 && Number(day) <= 31 ? 1 : Number(day) + 1;
-    const checkOutMonth =
-      Number(day) >= 28 && Number(day) <= 31
-        ? Number(month) === 12
-          ? 1
-          : Number(month) + 1
-        : Number(month);
-    const checkOutYear =
-      Number(day) >= 28 && Number(day) <= 31 ? Number(year) + 1 : year;
+      dateOut = tomorrow;
+    }
+
+    const [yearIn, monthIn, dayIn] = dateIn
+      .toISOString()
+      .slice(0, 10)
+      .split('-');
+    const [yearOut, monthOut, dayOut] = dateOut
+      .toISOString()
+      .slice(0, 10)
+      .split('-');
+    console.log({yearOut, monthOut, dayOut});
 
     const res = await http(
       'POST',
       'https://hotels4.p.rapidapi.com/properties/v2/list',
       {
-        data: `{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"${cityId}"},"checkInDate":{"day":${day},"month":${month},"year":${year}},"checkOutDate":{"day":${checkOutDay},"month":${checkOutMonth},"year":${checkOutYear}},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":${count},"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max": ${Number(
+        data: `{"currency":"USD","eapid":1,"locale":"en_US","siteId":300000001,"destination":{"regionId":"${cityId}"},"checkInDate":{"day":${Number(
+          dayIn,
+        )},"month":${Number(
+          monthIn,
+        )},"year":${yearIn}},"checkOutDate":{"day":${Number(
+          dayOut,
+        )},"month":${Number(
+          monthOut,
+        )},"year":${yearOut}},"rooms":[{"adults":2,"children":[{"age":5},{"age":7}]}],"resultsStartingIndex":0,"resultsSize":${count},"sort":"PRICE_LOW_TO_HIGH","filters":{"price":{"max": ${Number(
           maxPrice,
         )},"min":${Number(minPrice)}}}}`,
       },

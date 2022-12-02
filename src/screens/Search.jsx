@@ -32,6 +32,8 @@ const SearchScreen = ({route, navigation}) => {
           count,
           filterSearch.minPrice,
           filterSearch.maxPrice,
+          filterSearch.dateIn,
+          filterSearch.dateOut,
         );
 
         if (res) setHotels(res);

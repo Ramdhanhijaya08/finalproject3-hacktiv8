@@ -16,6 +16,7 @@ import city from '../data/countries.json';
 import {useNavigation} from '@react-navigation/native';
 import XIcon from '../assets/svg/x.svg';
 import Toast from 'react-native-toast-message';
+import DatePicker from 'react-native-date-picker';
 
 const cities = [];
 
@@ -30,6 +31,12 @@ const SearchBar = () => {
   const [filterSearch, setFilterSearch] = useAtom(atom.filterSearch);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+
+  const [dateIn, setDateIn] = useState(new Date());
+  const [openIn, setOpenIn] = useState(false);
+
+  const [dateOut, setDateOut] = useState(new Date());
+  const [openOut, setOpenOut] = useState(false);
 
   const navigation = useNavigation();
 
@@ -47,10 +54,20 @@ const SearchBar = () => {
       return;
     }
 
+    if (dateIn.toDateString() === dateOut.toDateString()) {
+      Toast.show({
+        type: 'error',
+        text1: 'Checkin date cannot be the same as checkout date',
+      });
+      return;
+    }
+
     if (Number(minPrice) < Number(maxPrice)) {
       setFilterSearch({
         minPrice,
         maxPrice,
+        dateIn,
+        dateOut,
       });
       setModalFilter(false);
     } else {
@@ -64,6 +81,8 @@ const SearchBar = () => {
   useEffect(() => {
     setMaxPrice(filterSearch.maxPrice);
     setMinPrice(filterSearch.minPrice);
+    setDateIn(filterSearch.dateIn);
+    setDateOut(filterSearch.dateOut);
   }, []);
 
   return (
@@ -193,6 +212,82 @@ const SearchBar = () => {
             }}
           />
         </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 30,
+          }}>
+          <View>
+            <Text style={{fontSize: 20, fontWeight: '500', color: 'black'}}>
+              Check in Date
+            </Text>
+            <TouchableOpacity
+              onPress={() => setOpenIn(true)}
+              style={{
+                backgroundColor: '#eee',
+                paddingHorizontal: 15,
+                alignSelf: 'flex-start',
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 10,
+              }}>
+              <Text style={{color: 'black', fontWeight: '500', fontSize: 16}}>
+                {dateIn.toDateString()}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <DatePicker
+            mode="date"
+            modal
+            open={openIn}
+            date={dateIn}
+            onConfirm={date => {
+              setOpenIn(false);
+              setDateIn(date);
+            }}
+            onCancel={() => {
+              setOpenIn(false);
+            }}
+          />
+
+          <View>
+            <Text style={{fontSize: 20, fontWeight: '500', color: 'black'}}>
+              Check out Date
+            </Text>
+            <TouchableOpacity
+              onPress={() => setOpenOut(true)}
+              style={{
+                backgroundColor: '#eee',
+                paddingHorizontal: 15,
+                alignSelf: 'flex-start',
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 10,
+              }}>
+              <Text style={{color: 'black', fontWeight: '500', fontSize: 16}}>
+                {dateOut.toDateString()}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <DatePicker
+          mode="date"
+          modal
+          open={openOut}
+          date={dateOut}
+          onConfirm={date => {
+            setOpenOut(false);
+            setDateOut(date);
+          }}
+          onCancel={() => {
+            setOpenOut(false);
+          }}
+        />
 
         <PrimaryButton onPress={applyFilterHandler} style={{marginTop: 30}}>
           Apply
